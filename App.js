@@ -1,112 +1,88 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import React, { useState } from "react";
+import { View,Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from "react-native";
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+function App(){
+  const [ img, setImg ] = useState(require('./img/biscoito.png'));
+  
+  return(
+    <View style={styles.container}>
+      
+      <Image
+        source={img}
+        style={styles.img}/>
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+      <Text style={styles.txtFraze}>" Minha Primeira Frase do Biscoito "</Text>
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+      <TouchableOpacity style={styles.bt} onPress={quebrarBiscoito}>
+        <View style={styles.btContainer}>
+          <Text style={styles.btTxt}>Quebre o Biscoito</Text>
         </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+      </TouchableOpacity>
+
+      <TouchableOpacity style={[styles.bt,styles.bt2]} onPress={reset}>
+        <View style={styles.btContainer}>
+          <Text style={[styles.btTxt,styles.btTxt2]}>Resetar</Text>
+        </View>
+      </TouchableOpacity>
+
+    </View>
+  )
+  
+  function quebrarBiscoito(){
+    setImg(require('./img/biscoitoAberto.png'));
+  }
+  
+  function reset(){
+    alert('Resetando')
+  }
+}
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container:{
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: `#cecece`,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  img: {
+    width: 230,
+    height: 230,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  txtFraze:{
+    fontSize: 20,
+    color: "#87018b",
+    margin: 30,
+    fontStyle: "italic",
+    textAlign: "center"
   },
-  highlight: {
+  bt:{
+    width: 230,
+    height: 50,
+    borderColor: "#87018b",
+    borderWidth: 2,
+    borderRadius: 20
+  },
+  bt2:{ 
+    marginTop: 15,
+    borderColor: '#121212'
+  },
+  btContainer:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  btTxt:{
+    fontSize: 15,
     fontWeight: '700',
+    color: '#87018b'
   },
+  btTxt2:{
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#121212'
+  }
 });
 
 export default App;
